@@ -1,8 +1,29 @@
 const WIDTH = document.body.getBoundingClientRect().width
 const HEIGHT = document.body.getBoundingClientRect().height
 
+class Button{
+    constructor(app, x, y, text) {
+        this.sprite = PIXI.Texture.WHITE
+        this.sprite.tint = "#B6B6B6"
+        this.button = new PIXI.Sprite(this.sprite)
+        this.text = new PIXI.Text(text)
+        this.text.x = x
+        this.text.y = y
+        this.text.anchor.set(0.5)
+        this.button.x = x
+        this.button.y = y
+        this.button.anchor.set(0.5)
+        this.button.width = 300
+        this.button.height = 75
+        this.button.interactive = true
+        this.button.buttonMode = true
+        app.stage.addChild(this.button)
+        app.stage.addChild(this.text)
+    }
+}
+
 function initTitle(app) {
-    const starTexture = PIXI.Texture.from('/images/star.png');
+    const starTexture = PIXI.Texture.from('../images/heart3.png');
 
     const starAmount = 1000;
     let cameraZ = 0;
@@ -88,6 +109,14 @@ function initTitle(app) {
     app.stage.addChild(title)
 }
 
+function menu(app) {
+    initTitle(app)
+    new Button(app,WIDTH / 2, HEIGHT / 4, "Start")
+    new Button(app,WIDTH / 2, HEIGHT / 2.5, "Loading Game")
+    new Button(app,WIDTH / 2, HEIGHT / 1.8, "Options")
+    new Button(app,WIDTH / 2, HEIGHT / 1.4, "Credits")
+}
+
 function initApp() {
     return new PIXI.Application({ width: WIDTH, height: HEIGHT });
 }
@@ -95,7 +124,7 @@ function initApp() {
 function run() {
     let app = initApp()
     document.body.appendChild(app.view);
-    initTitle(app)
+    menu(app)
 }
 
 run()
