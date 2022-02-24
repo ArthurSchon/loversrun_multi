@@ -1,0 +1,23 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    background-color: #000;
+    color: #FFFFFF;
+}
+
+.title {
+    text-align: center;
+}
+
+.board {
+    border: 1px solid black;
+    width: 80%;
+    height: 80%;
+    background-color: #FFF;
+}
