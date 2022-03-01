@@ -2,7 +2,7 @@ const WIDTH = document.body.getBoundingClientRect().width
 const HEIGHT = document.body.getBoundingClientRect().height
 const STYLE = new PIXI.TextStyle({
     fill: "white",
-    fontSize: 40,
+    fontSize: 100,
     fontStyle: "italic",
     fontWeight: "bold",
     align: "center",
@@ -32,14 +32,30 @@ class Button{
     }
 }
 
+class BackGroundTitle {
+    constructor(app,x,y){
+        this.rect = new PIXI.Graphics();
+
+        this.rect.lineStyle(2, 0xFF0000, 1);
+        this.rect.beginFill(0x2980B9, 0);
+        this.rect.drawRoundedRect(x, y, 500, 100, 16);
+        this.rect.endFill();
+        this.rect.pivot.set(x/2.7, y/2);
+        this.rect.zIndex = 0;
+        app.stage.addChild(this.rect);
+
+    }
+}
+
 class Text {
     constructor(app, x, y, text) {
         this.text = new PIXI.Text(text, STYLE);
         this.text.x = x;
         this.text.y = y;
-        this.text.anchor.set(0.5)
-        this.app = app
-        this.app.stage.addChild(this.text)
+        this.text.zIndex = 2;
+        this.text.anchor.set(0.5);
+        this.app = app;
+        this.app.stage.addChild(this.text);
     }
 }
 
@@ -111,7 +127,8 @@ function background(app) {
 
 function menu(app) {
     background(app)
-    new Text(app, WIDTH / 2, 50, "Lovers Run")
+    new Text(app, WIDTH / 2, 100, "Lovers Run")
+    new BackGroundTitle(app,WIDTH / 2,100);
     new Button(app,WIDTH / 2, HEIGHT / 4, "Start")
     new Button(app,WIDTH / 2, HEIGHT / 2.5, "Loading Game")
     new Button(app,WIDTH / 2, HEIGHT / 1.8, "Options")
