@@ -1,3 +1,4 @@
+let fontName = 'Snippet'
 const WIDTH = document.body.getBoundingClientRect().width
 const HEIGHT = document.body.getBoundingClientRect().height
 const STYLE = new PIXI.TextStyle({
@@ -8,14 +9,14 @@ const STYLE = new PIXI.TextStyle({
     align: "center",
     stroke: "#b80000",
     strokeThickness: 2,
-    fontFamily: ['PublicPixel']
-});
+    fontFamily: fontName
+})
 
-class Button{
+class Button {
     constructor(app, x, y, text) {
-        this.texture = PIXI.Texture.from("../images/button.png")
+        this.texture = PIXI.Texture.from("../images/buttons/Button08.png")
         this.button = new PIXI.Sprite(this.texture)
-        this.text = new PIXI.Text(text, {fontFamily: ['Public Pixel', 'sans-serif'], fontSize: 20, fill: "#FFF"})
+        this.text = new PIXI.Text(text, {fontFamily: fontName, fontSize: 20, fill: "#FFF"})
         this.text.x = x
         this.text.y = y
         this.text.anchor.set(0.5)
@@ -29,6 +30,13 @@ class Button{
         this.app = app
         this.app.stage.addChild(this.button)
         this.app.stage.addChild(this.text)
+        this.button
+            .on("pointerover", function (event) {
+                event.currentTarget.texture = PIXI.Texture.from("../images/buttons/Button09.png")
+            })
+            .on('pointerout', function (event) {
+                event.currentTarget.texture = PIXI.Texture.from("../images/buttons/Button08.png")
+            })
     }
 }
 
@@ -145,6 +153,20 @@ function run() {
     menu(app)
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    run()
-});
+window.onload = function()
+{
+    WebFont.load(
+        {
+            active : function()
+            {
+                setTimeout(function()
+                {
+                    run();
+                }, 500);
+            },
+            google :
+                {
+                    families: [ fontName ]
+                }
+        });
+};
